@@ -1,0 +1,92 @@
+/* Basic reset */
+body,
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Header and navbar styles */
+.header {
+  background-color: #333;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Center the menu */
+  padding: 0px 30px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+}
+
+.menu > li {
+  position: relative;
+}
+
+.menu > li > a,
+.user-name {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+.menu > li > a.active,
+.user-name:hover {
+  background-color: #575757;
+}
+
+.menu > li > a:hover,
+.user-name:hover {
+  background-color: #575757;
+}
+
+/* Dropdown styles */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: -50%;
+  background-color: #333;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.dropdown-menu li {
+  display: block;
+}
+
+.dropdown-menu li a {
+  padding: 12px 24px;
+  text-decoration: none;
+  color: white;
+  display: block;
+}
+
+.dropdown-menu li a.active {
+  background-color: #575757;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #575757;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Optional: Smooth transition for dropdown */
+.dropdown-menu {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+  opacity: 1;
+}
