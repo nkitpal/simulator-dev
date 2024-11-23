@@ -3,6 +3,7 @@ import { validationResult } from "express-validator";
 import { compare, hash } from "bcrypt";
 import { config } from "dotenv";
 import User from "../models/user.js";
+import { googleConfig } from "../utils/googleConfig.js";
 
 config();
 
@@ -93,6 +94,25 @@ export const login = async (req, res, next) => {
         token: token,
       },
     });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+
+export const googleLogin = async (req, res, next) => {
+  try {
+    const { code } = req.body;
+    const googleRes = await googleConfig.getToken(code);
+    googleConfig.setCredentials(googleRes.tokens);
+    const userRes = await fetch(
+      ` https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleRes.tokens.access_token}`,
+      { method: "GET" }
+    );
+    const { email, name } = userRes.data;
+    console.log(email, name);
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;

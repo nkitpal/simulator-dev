@@ -4,6 +4,7 @@ import ErrorModal from "./ErrorModal";
 import { Form, useNavigate, NavLink } from "react-router-dom";
 import { loginActions, usersActions } from "../store/user";
 import { useDispatch, useSelector } from "react-redux";
+import { useGoogleLogin } from "@react-oauth/google";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -34,6 +35,30 @@ export default function Login() {
     navigate("../500");
   }
 
+  const responseGoogle = async (authResult) => {
+    try {
+      if (authResult["code"]) {
+        const res = await fetch("http://localhost:8080/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            code: authResult["code"],
+          }),
+        });
+        console.log(res);
+      }
+    } catch (err) {
+      console.error("Error while taking response from Google", err);
+    }
+  };
+  const googleLogin = useGoogleLogin({
+    onSuccess: responseGoogle,
+    onError: responseGoogle,
+    flow: "auth-code",
+  });
+
   if (loading) {
     <p>Submitting....</p>;
   }
@@ -50,7 +75,7 @@ export default function Login() {
         message={errorMsg[0]}
         handleCloseModal={handleCloseErrorModal}
       />
-      <Form onSubmit={handleSubmit}>
+      {/* <Form onSubmit={handleSubmit}>
         {error && (status === 422 || status === 401) && (
           <ul>
             {errorMsg.map((e) => (
@@ -66,7 +91,8 @@ export default function Login() {
           </button>
           <button type="submit">Login</button>
         </div>
-      </Form>
+      </Form> */}
+      <button onClick={googleLogin}>Login with Google</button>
       <p>
         New user? <NavLink to="/signup">Signup</NavLink>
       </p>

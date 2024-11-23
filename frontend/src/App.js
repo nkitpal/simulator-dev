@@ -6,8 +6,16 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import ErrorPage from "./components/ErrorPage";
 import Question from "./components/Question";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {
+  function GoogleAuthWrapper() {
+    return (
+      <GoogleOAuthProvider clientId="586203942024-okrtupb8i4mja23nmidi5jmkgee300ca.apps.googleusercontent.com">
+        <Login />
+      </GoogleOAuthProvider>
+    );
+  }
   const router = createBrowserRouter([
     {
       path: "/",
@@ -19,7 +27,7 @@ function App() {
         },
         {
           path: "login",
-          element: <Login />,
+          element: <GoogleAuthWrapper />,
         },
         {
           path: "signup",

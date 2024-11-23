@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import userRoutes from "./routes/user.js";
+import authRoutes from "./routes/auth.js";
 import { config } from "dotenv";
 
 const app = express();
@@ -19,6 +20,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/user", userRoutes);
+app.use("/auth", authRoutes);
 
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
