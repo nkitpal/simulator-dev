@@ -200,7 +200,7 @@ export const registerActions = (formData) => {
       console.log(formData);
       dispatch(usersActions.register({ type: "REGISTER_USER_REQ" }));
 
-      const response = await fetch("http://localhost:8080/user/signup", {
+      const response = await fetch("https://simulator-dev-backend.vercel.app/user/signup", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -259,7 +259,7 @@ export const loginActions = (formData) => {
     try {
       dispatch(usersActions.login({ type: "LOGIN_USER_REQ" }));
 
-      const response = await fetch("http://localhost:8080/user/login", {
+      const response = await fetch("http://simulator-dev-backend.vercel.app/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -323,7 +323,7 @@ export const codeActions = (formData) => {
       dispatch(usersActions.code({ type: "CODE_SAVE_REQ" }));
       const state = getState();
       console.log("aaaaaaaa", state.myUser.userData?.token);
-      const response = await fetch("http://localhost:8080/user/save-code", {
+      const response = await fetch("https://simulator-dev-backend.vercel.app/user/save-code", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
