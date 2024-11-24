@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { logoutActions } from "../store/user";
+
 export default function MainNavigation() {
   const userData = useSelector((state) => state.myUser.userData);
 
@@ -11,24 +12,22 @@ export default function MainNavigation() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function handleClick() {
+  function handleLogout() {
     dispatch(logoutActions());
     navigate("../login");
   }
+
   return (
     <header className={classes.header}>
       <nav className={classes.navbar}>
         <h2>Game Theory</h2>
         <ul className={classes.menu}>
-          {token ? (
-            <>
+          {token && (
+            <ul>
               <li>{name}</li>
-              <NavLink onClick={handleClick}>Logout</NavLink>
-            </>
-          ) : (
-            <li>
-              <NavLink to="/login">Login</NavLink>
-            </li>
+              <NavLink to="/question">Question</NavLink>
+              <NavLink onClick={handleLogout}>Logout</NavLink>
+            </ul>
           )}
         </ul>
       </nav>

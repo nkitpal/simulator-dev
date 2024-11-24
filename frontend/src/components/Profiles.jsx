@@ -1,19 +1,9 @@
-export default function Profiles({ data }) {
-  return data.map((value, index) => (
-    <div
-      style={{ display: "flex", justifyContent: "space-around" }}
-      key={value.id}
-    >
-      <div>
-        <img src={value.img} alt="" />
-        <div>
-          <h3>{value.name}</h3>
-          <span>{value.location}</span>
-        </div>
-      </div>
-      <div>
-        <span>{value.score}</span>
-      </div>
+export default function Profiles({ student }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <p>{student.email}</p>
+      <p>{student.name}</p>
+      <span>{student.score}</span>
     </div>
-  ));
+  );
 }

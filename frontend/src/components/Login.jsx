@@ -1,4 +1,3 @@
-import Input from "../UI/Input";
 import SuccessModal from "./SuccessModal";
 import ErrorModal from "./ErrorModal";
 import { Form, useNavigate, NavLink } from "react-router-dom";
@@ -7,6 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGoogleLogin } from "@react-oauth/google";
 
 export default function Login() {
+  const userData = useSelector((state) => state.myUser.userData);
+  const token = userData?.token;
+  const googleLogin = useGoogleLogin({
+    onSuccess: (authResult) => dispatch(loginActions(authResult)),
+    onError: (authResult) => dispatch(loginActions(authResult)),
+    flow: "auth-code",
+  });
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -15,15 +22,15 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const inputData = Object.fromEntries(formData);
-    dispatch(loginActions(inputData));
+    // const formData = new FormData(e.target);
+    // const inputData = Object.fromEntries(formData);
+    googleLogin();
   }
 
-  function handleCancel() {
-    dispatch(usersActions.login({ type: "LOGIN_USER_RESET" }));
-    navigate("../");
-  }
+  // function handleCancel() {
+  //   dispatch(usersActions.login({ type: "LOGIN_USER_RESET" }));
+  //   navigate("../");
+  // }
 
   function handleCloseSuccessModal() {
     dispatch(usersActions.login({ type: "LOGIN_USER_RESET" }));
@@ -32,32 +39,14 @@ export default function Login() {
 
   function handleCloseErrorModal() {
     dispatch(usersActions.login({ type: "LOGIN_USER_RESET" }));
-    navigate("../500");
+    navigate("../");
   }
 
-  const responseGoogle = async (authResult) => {
-    try {
-      if (authResult["code"]) {
-        const res = await fetch("http://localhost:8080/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            code: authResult["code"],
-          }),
-        });
-        console.log(res);
-      }
-    } catch (err) {
-      console.error("Error while taking response from Google", err);
-    }
-  };
-  const googleLogin = useGoogleLogin({
-    onSuccess: responseGoogle,
-    onError: responseGoogle,
-    flow: "auth-code",
-  });
+  // const googleLogin = useGoogleLogin({
+  //   onSuccess: responseGoogle,
+  //   onError: responseGoogle,
+  //   flow: "auth-code",
+  // });
 
   if (loading) {
     <p>Submitting....</p>;
@@ -92,10 +81,22 @@ export default function Login() {
           <button type="submit">Login</button>
         </div>
       </Form> */}
-      <button onClick={googleLogin}>Login with Google</button>
-      <p>
-        New user? <NavLink to="/signup">Signup</NavLink>
-      </p>
+      {!token && (
+        <Form onSubmit={handleSubmit}>
+          {error && (status === 422 || status === 401) && (
+            <ul>
+              {errorMsg.map((e) => (
+                <li key={e.msg}>{e.msg}</li>
+              ))}
+            </ul>
+          )}
+          {/* <Input label="URN" name="urn" type="text" required /> */}
+          <div>
+            <button type="submit">Login with Google</button>
+          </div>
+        </Form>
+      )}
+      {/* <button onClick={googleLogin}>Login with Google</button> */}
     </>
   );
 }

@@ -3,6 +3,7 @@ import { body } from "express-validator";
 import { signup, login, saveCode } from "../controllers/auth.js";
 import User from "../models/user.js";
 import isAuth from "../middleware/is-auth.js";
+import { getLeaderboard } from "../controllers/auth.js";
 
 const router = Router();
 
@@ -56,5 +57,7 @@ router.post(
   [body("code").trim().notEmpty().withMessage("Code is Empty")],
   saveCode
 );
+
+router.get("/leaderboard", getLeaderboard);
 
 export default router;

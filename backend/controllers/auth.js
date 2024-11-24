@@ -6,7 +6,6 @@ import User from "../models/user.js";
 import { googleConfig } from "../utils/googleConfig.js";
 
 config();
-
 export const signup = async (req, res, next) => {
   console.log("a");
   try {
@@ -107,12 +106,53 @@ export const googleLogin = async (req, res, next) => {
     const { code } = req.body;
     const googleRes = await googleConfig.getToken(code);
     googleConfig.setCredentials(googleRes.tokens);
-    const userRes = await fetch(
+    const response = await fetch(
       ` https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleRes.tokens.access_token}`,
       { method: "GET" }
     );
-    const { email, name } = userRes.data;
-    console.log(email, name);
+
+    if (!response.ok) {
+      throw new Error("could not get response");
+    }
+
+    const resData = await response.json();
+    if (!resData) {
+      throw new Error("login with google error");
+    }
+
+    const { email, name } = resData;
+
+    if (!email.endsWith("@newtonschool.co")) {
+      throw new Error("Invalid Email Domain");
+    }
+
+    let user = await User.findOne({ email });
+    if (!user) {
+      user = new User({
+        email,
+        name,
+      });
+      const savedUser = await user.save();
+      if (!savedUser) {
+        throw new Error("Could not save product into db");
+      }
+    }
+
+    const token = jwt.sign(
+      { email: user.email, userId: user._id.toString() },
+      process.env.tokenSecret,
+      { expiresIn: "1h" }
+    );
+
+    res.status(200).json({
+      message: "Successfully Logged in",
+      userData: {
+        id: user._id.toString(),
+        name: user.name,
+        email: user.email,
+        token: token,
+      },
+    });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
@@ -151,6 +191,29 @@ export const saveCode = async (req, res, next) => {
 
     res.status(201).json({
       message: "code saved successfully",
+      individualCoder: savedUser,
+    });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+
+export const getLeaderboard = async (req, res, next) => {
+  try {
+    const coder = await User.find();
+
+    if (!coder) {
+      const err = new Error("Could not fetch coders");
+      err.statusCode = 404;
+      throw err;
+    }
+
+    res.status(200).json({
+      message: "Successfully Retrieved coders",
+      coder,
     });
   } catch (err) {
     if (!err.statusCode) {

@@ -2,20 +2,19 @@ import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import LeaderBoard from "./components/LeaderBoard";
 import Root from "./components/Root";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
 import ErrorPage from "./components/ErrorPage";
 import Question from "./components/Question";
-import { GoogleOAuthProvider } from "@react-oauth/google";
+import { loadStudentsActions } from "./store/leaderboard";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import LoginGuard from "./components/LoginGuard";
 
 function App() {
-  function GoogleAuthWrapper() {
-    return (
-      <GoogleOAuthProvider clientId="586203942024-okrtupb8i4mja23nmidi5jmkgee300ca.apps.googleusercontent.com">
-        <Login />
-      </GoogleOAuthProvider>
-    );
-  }
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadStudentsActions());
+  }, []);
   const router = createBrowserRouter([
     {
       path: "/",
@@ -26,16 +25,12 @@ function App() {
           element: <LeaderBoard />,
         },
         {
-          path: "login",
-          element: <GoogleAuthWrapper />,
-        },
-        {
-          path: "signup",
-          element: <Signup />,
-        },
-        {
           path: "question",
-          element: <Question />,
+          element: (
+            <LoginGuard>
+              <Question />
+            </LoginGuard>
+          ),
         },
       ],
     },
@@ -43,6 +38,7 @@ function App() {
       path: "/500",
       element: <ErrorPage />,
     },
+    { path: "*", element: <ErrorPage /> },
   ]);
 
   return <RouterProvider router={router} />;

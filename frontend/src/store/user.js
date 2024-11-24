@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { leaderboardActions, leaderboarSlice } from "./leaderboard";
 
 const userDataFromStorage =
   JSON.parse(localStorage.getItem("userData")) || null;
@@ -200,7 +201,7 @@ export const registerActions = (formData) => {
       console.log(formData);
       dispatch(usersActions.register({ type: "REGISTER_USER_REQ" }));
 
-      const response = await fetch("https://simulator-dev-backend.vercel.app/user/signup", {
+      const response = await fetch("http://localhost:8080/user/signup", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -254,19 +255,63 @@ export const registerActions = (formData) => {
   };
 };
 
-export const loginActions = (formData) => {
+export const loginActions = (authResult) => {
   return async (dispatch) => {
+    // try {
+    //   dispatch(usersActions.login({ type: "LOGIN_USER_REQ" }));
+    //   const response = await fetch("http://localhost:8080/user/login", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       email: formData.email,
+    //       password: formData.password,
+    //     }),
+    //   });
+    //   if (response.status === 422 || response.status === 401) {
+    //     const errors = await response.json();
+    //     dispatch(
+    //       usersActions.login({
+    //         type: "LOGIN_USER_FAIL",
+    //         status: response.status,
+    //         errors: errors.data,
+    //       })
+    //     );
+    //     return;
+    //   }
+    //   const resData = await response.json();
+    //   if (!resData) {
+    //     throw new Error("could not login user");
+    //   }
+    //   dispatch(
+    //     usersActions.login({
+    //       type: "LOGIN_USER_SUCCESS",
+    //       message: resData.message,
+    //       userData: resData.userData,
+    //     })
+    //   );
+    //   localStorage.setItem("userData", JSON.stringify(resData.userData));
+    // } catch (err) {
+    //   dispatch(
+    //     usersActions.login({
+    //       type: "LOGIN_USER_FAIL",
+    //       errors: [err.message],
+    //     })
+    //   );
+    // }
     try {
-      dispatch(usersActions.login({ type: "LOGIN_USER_REQ" }));
+      if (!authResult["code"]) {
+        throw new Error("Could not login with google");
+      }
 
-      const response = await fetch("http://simulator-dev-backend.vercel.app/user/login", {
+      const response = await fetch("http://localhost:8080/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
+          code: authResult["code"],
         }),
       });
 
@@ -279,12 +324,14 @@ export const loginActions = (formData) => {
             errors: errors.data,
           })
         );
-
         return;
       }
 
-      const resData = await response.json();
+      if (!response.ok) {
+        throw new Error("Please Login With ADYPU Email-Id");
+      }
 
+      const resData = await response.json();
       if (!resData) {
         throw new Error("could not login user");
       }
@@ -296,7 +343,6 @@ export const loginActions = (formData) => {
           userData: resData.userData,
         })
       );
-
       localStorage.setItem("userData", JSON.stringify(resData.userData));
     } catch (err) {
       dispatch(
@@ -319,11 +365,9 @@ export const logoutActions = () => {
 export const codeActions = (formData) => {
   return async (dispatch, getState) => {
     try {
-      console.log("aaaav");
       dispatch(usersActions.code({ type: "CODE_SAVE_REQ" }));
       const state = getState();
-      console.log("aaaaaaaa", state.myUser.userData?.token);
-      const response = await fetch("https://simulator-dev-backend.vercel.app/user/save-code", {
+      const response = await fetch("http://localhost:8080/user/save-code", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -333,8 +377,6 @@ export const codeActions = (formData) => {
           code: formData.py,
         }),
       });
-
-      console.log("zz");
 
       if (response.status === 401) {
         // yet to display a message telling user that he has done
@@ -374,6 +416,11 @@ export const codeActions = (formData) => {
         usersActions.code({
           type: "CODE_SAVE_SUCCESS",
           message: resData.message,
+        })
+      );
+      dispatch(
+        leaderboardActions.addLeaderBoard({
+          individualCoder: resData.individualCoder,
         })
       );
     } catch (err) {
