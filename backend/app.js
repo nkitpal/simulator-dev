@@ -11,7 +11,7 @@ config();
 // hello
 app.use(cors(
   {
-    origin: ["https://simulator-dev-backend.vercel.app"],
+    origin: ["https://simulator-dev-frontend.vercel.app"],
     methods: ["POST", "GET"], 
     credentials: true
   }
