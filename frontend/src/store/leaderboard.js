@@ -71,7 +71,7 @@ export const loadStudentsActions = () => {
         leaderboardActions.showLeaderboard({ type: "LEADERBOARD_REQUEST" })
       );
 
-      const response = await fetch("http://localhost:8080/user/leaderboard", {
+      const response = await fetch("http://simulator-dev-backend.vercel.app/user/leaderboard", {
         method: "GET",
       });
 
