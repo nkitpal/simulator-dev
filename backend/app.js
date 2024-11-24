@@ -8,7 +8,7 @@ import cors from "cors";
 const app = express();
 config();
 
-
+// hello
 app.use(cors(
   {
     origin: ["https://simulator-dev-backend.vercel.app"],
