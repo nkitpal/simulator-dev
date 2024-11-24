@@ -3,9 +3,19 @@ import mongoose from "mongoose";
 import userRoutes from "./routes/user.js";
 import authRoutes from "./routes/auth.js";
 import { config } from "dotenv";
+import cors from "cors";
 
 const app = express();
 config();
+
+
+app.use(cors(
+  {
+    origin: ["https://https://simulator-dev-backend.vercel.app"],
+    methods: ["POST", "GET"], 
+    credentials: true
+  }
+));
 
 app.use(express.json());
 
