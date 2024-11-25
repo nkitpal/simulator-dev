@@ -28,7 +28,10 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
-
+app.use("/", (req,res) => {
+  res.send("<h1>Hello</h1>");
+  res.end();
+})
 app.use("/user", userRoutes);
 app.use("/auth", authRoutes);
 
