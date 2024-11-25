@@ -7,13 +7,17 @@ import cors from "cors";
 
 const app = express();
 config();
-app.use(cors(
-  {
-    origin: ["https://simulator-dev-frontend.vercel.app"],
-    methods: ["POST", "GET"], 
-    credentials: true
-  }
-));
+app.use((req, res, next) => {
+  cors(
+    {
+      origin: ["https://simulator-dev-frontend.vercel.app"],
+      methods: ["POST", "GET"], 
+      credentials: true
+    }
+  );
+  next();
+}
+);
 app.use(express.json());
 
 app.use((req, res, next) => {
