@@ -8,7 +8,6 @@ const initialCoderState = {
     error: false,
     successMsg: "",
     errorMsg: [],
-    status: null,
   },
 };
 
@@ -24,7 +23,6 @@ export const leaderboarSlice = createSlice({
             error: false,
             errorMsg: [],
             successMsg: "",
-            status: null,
           };
           break;
         }
@@ -35,7 +33,6 @@ export const leaderboarSlice = createSlice({
             error: false,
             errorMsg: [],
             successMsg: actions.payload.msg,
-            status: null,
           };
           break;
         }
@@ -45,7 +42,6 @@ export const leaderboarSlice = createSlice({
             error: true,
             errorMsg: actions.payload.errors,
             successMsg: "",
-            status: actions.payload.status || 500,
           };
           break;
         }
@@ -56,18 +52,12 @@ export const leaderboarSlice = createSlice({
             error: false,
             errorMsg: [],
             successMsg: "",
-            status: null
           };
         }
       }
     },
-
     addLeaderBoard(state, actions) {
-      const searchCoder = state.coder.find(c => c._id === actions.payload.individualCoder._id)
-      if(!searchCoder){
-        state.coder.push(actions.payload.individualCoder)
-      }
-      
+      state.coder.push(actions.payload.individualCoder);
     },
   },
 });
@@ -81,7 +71,7 @@ export const loadStudentsActions = () => {
         leaderboardActions.showLeaderboard({ type: "LEADERBOARD_REQUEST" })
       );
 
-      const response = await fetch("https://simulator-dev-backend.onrender.com/leaderboard", {
+      const response = await fetch("https://simulator-dev-backend.onrender.com/user/leaderboard", {
         method: "GET",
       });
 
@@ -93,19 +83,6 @@ export const loadStudentsActions = () => {
 
       if (!resData) {
         throw new Error("could not load products");
-      }
-      
-      const studentIdx = resData.coder.findIndex(c => c._id === JSON.parse(localStorage.getItem("userData"))?.id)
-
-      if(resData.coder[studentIdx]?.error){
-        dispatch(
-          leaderboardActions.showLeaderboard({
-            type: "LEADERBOARD_FAIL",
-            status: 499,
-            errors: [resData.coder[studentIdx]?.error],
-          })
-        );
-        return
       }
 
       dispatch(
