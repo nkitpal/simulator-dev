@@ -122,6 +122,8 @@ export const googleLogin = async (req, res, next) => {
 
     const { email, name } = resData;
 
+    console.log(email)
+
     if (!email.endsWith("@newtonschool.co")) {
       throw new Error("Invalid Email Domain");
     }

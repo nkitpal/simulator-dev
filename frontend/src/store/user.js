@@ -326,7 +326,6 @@ export const loginActions = (authResult) => {
         );
         return;
       }
-
       if (!response.ok) {
         throw new Error("Please Login With ADYPU Email-Id");
       }
