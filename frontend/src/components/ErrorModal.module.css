@@ -1,0 +1,56 @@
+/* Error Modal specific styles */
+.errorContent {
+    text-align: center;
+    color: #333;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .errorTitle {
+    font-size: 1.8rem;
+    color: #d9534f; /* Red color to indicate an error */
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  .errorContent p {
+    font-size: 1rem;
+    color: #555;
+    margin: 10px 0;
+  }
+  
+  .closeButton {
+    background-color: #d9534f; /* Red background for error */
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .closeButton:hover {
+    background-color: #c9302c; /* Darker red on hover */
+  }
+  
+  .closeButton:focus {
+    outline: none;
+  }
+  
+  /* Optional: Slightly increased padding for mobile responsiveness */
+  @media (max-width: 600px) {
+    .errorContent {
+      padding: 15px;
+    }
+  
+    .errorTitle {
+      font-size: 1.5rem;
+    }
+  
+    .closeButton {
+      font-size: 1rem;
+      padding: 8px 16px;
+    }
+  }
+  

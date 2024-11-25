@@ -7,8 +7,6 @@ import cors from "cors";
 
 const app = express();
 config();
-
-// hello
 app.use(cors(
   {
     origin: ["https://simulator-dev-frontend.vercel.app"],
@@ -16,7 +14,6 @@ app.use(cors(
     credentials: true
   }
 ));
-
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -43,5 +40,6 @@ app.use((error, req, res, next) => {
   const port = process.env.PORT || 8080;
   const res = await mongoose.connect(process.env.mongoUrl);
   console.log("connected");
+
   app.listen(port);
 })();

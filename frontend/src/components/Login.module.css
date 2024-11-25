@@ -1,0 +1,39 @@
+/* Google Login Button Styling */
+.googleButton {
+    background-color: whitesmoke; /* Google Blue */
+    color:black;
+    font-size: 1.2rem;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between icon and text */
+    transition: background-color 0.3s, transform 0.3s;
+    font-family: 'Roboto', sans-serif; /* Ensure the button matches the font used in the rest of the page */
+    border: 1px black solid;
+  }
+  
+  .googleButton:hover {
+    background-color: grey; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight hover effect */
+  }
+  
+  .googleButton:active {
+    background-color: #3367d6; /* Even darker blue when clicked */
+    transform: translateY(0); /* Reset on click */
+  }
+  
+  .googleButton:focus {
+    outline: none;
+  }
+  
+  /* Google Icon Styling */
+  .googleIcon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+  }
+  

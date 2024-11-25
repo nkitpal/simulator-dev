@@ -141,7 +141,7 @@ export const googleLogin = async (req, res, next) => {
     const token = jwt.sign(
       { email: user.email, userId: user._id.toString() },
       process.env.tokenSecret,
-      { expiresIn: "1h" }
+      { expiresIn: "4h" }
     );
 
     res.status(200).json({
@@ -181,6 +181,7 @@ export const saveCode = async (req, res, next) => {
     }
 
     user.code = req.body.code;
+    user.error = "";
 
     const savedUser = await user.save();
     if (!savedUser) {

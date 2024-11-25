@@ -1,0 +1,89 @@
+/* ErrorPage specific styles */
+.errorPage {
+    text-align: center;
+    padding: 50px 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: fadeIn 1s ease-out;
+  }
+  
+  .title {
+    font-size: 2rem;
+    color: #e74c3c; /* Red color to signify error */
+    margin-bottom: 20px;
+    font-weight: bold;
+    opacity: 0;
+    animation: slideInFromTop 1s ease-out forwards 0.5s; /* Slide in with delay */
+  }
+  
+  .message {
+    font-size: 1.1rem;
+    color: #555;
+    margin: 10px 0;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards 1s; /* Fade in with delay */
+  }
+  
+  .link {
+    display: inline-block;
+    font-size: 1.2rem;
+    color: #3498db; /* Blue color for the link */
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #ecf0f1; /* Light background color */
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards 1.5s; /* Fade in with delay */
+  }
+  
+  .link:hover {
+    background-color: #bdc3c7; /* Slightly darker on hover */
+  }
+  
+  .link:focus {
+    outline: none;
+  }
+  
+  @media (max-width: 600px) {
+    .title {
+      font-size: 1.6rem;
+    }
+  
+    .message {
+      font-size: 1rem;
+    }
+  
+    .link {
+      font-size: 1.1rem;
+      padding: 8px 16px;
+    }
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideInFromTop {
+    0% {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  

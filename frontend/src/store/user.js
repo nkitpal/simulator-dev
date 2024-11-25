@@ -367,7 +367,7 @@ export const codeActions = (formData) => {
     try {
       dispatch(usersActions.code({ type: "CODE_SAVE_REQ" }));
       const state = getState();
-      const response = await fetch("https://simulator-dev-backend.onrender.com/user/save-code", {
+      const response = await fetch("https://simulator-dev-frontend.vercel.app/user/save-code", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

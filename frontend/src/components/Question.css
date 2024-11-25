@@ -1,0 +1,110 @@
+/* Styling for the question area */
+.questionArea {
+    font-family: 'Arial', sans-serif;
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .questionArea:hover {
+    transform: scale(1.02);
+  }
+  
+  .questionArea p {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Label styling */
+  .questionArea label {
+    display: block;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #555;
+  }
+  h1{
+    font-weight: bolder;
+    text-align: center;
+  }
+  /* Textarea styling */
+  .questionArea textarea {
+    width: 100%;
+    height: 200px;
+    resize: none;
+    padding: 10px;
+    font-size: 1em;
+    font-family: 'Courier New', monospace;
+    color: #444;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  .questionArea textarea:focus {
+    border-color: #6200ea;
+    outline: none;
+    box-shadow: 0 0 5px rgba(98, 0, 234, 0.4);
+  }
+  
+  /* Button container styling */
+  .buttonContainer {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  /* Submit button styling */
+  .submitButton {
+    background: #6200ea;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .submitButton:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .submitButton:not(:disabled):hover {
+    background: #3700b3;
+  }
+  
+  /* Cancel button styling */
+  .cancelButton {
+    background: #e53935;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .cancelButton:hover {
+    background: #c62828;
+  }
+  
+  /* Error message styling */
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 10px;
+    color: red;
+    font-size: 0.9em;
+  }
+  

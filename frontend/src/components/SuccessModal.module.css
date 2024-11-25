@@ -1,0 +1,56 @@
+/* Success Modal specific styles */
+.successContent {
+    text-align: center;
+    color: #333;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .successTitle {
+    font-size: 1.8rem;
+    color: #007bff; /* Light blue color to indicate success */
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  .successContent p {
+    font-size: 1rem;
+    color: #555;
+    margin: 10px 0;
+  }
+  
+  .closeButton {
+    background-color: #007bff; /* Light blue background for success */
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .closeButton:hover {
+    background-color: #007bff; /* Darker blue on hover */
+  }
+  
+  .closeButton:focus {
+    outline: none;
+  }
+  
+  /* Optional: Slightly increased padding for mobile responsiveness */
+  @media (max-width: 600px) {
+    .successContent {
+      padding: 15px;
+    }
+  
+    .successTitle {
+      font-size: 1.5rem;
+    }
+  
+    .closeButton {
+      font-size: 1rem;
+      padding: 8px 16px;
+    }
+  }
+  

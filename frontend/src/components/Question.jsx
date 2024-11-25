@@ -5,6 +5,7 @@ import { codeActions, usersActions } from "../store/user";
 import { useSelector } from "react-redux";
 import SuccessModal from "./SuccessModal";
 import ErrorModal from "./ErrorModal";
+import "./Question.css";
 
 export default function Question() {
   const dispatch = useDispatch();
@@ -21,8 +22,7 @@ export default function Question() {
     const formData = new FormData(e.target);
     const inputData = Object.fromEntries(formData);
 
-    // send to external api to run it against test cases
-
+    // Dispatch action to run code against test cases
     dispatch(codeActions(inputData));
   }
 
@@ -39,9 +39,12 @@ export default function Question() {
   function handleCancel() {
     navigate("../");
   }
+
   return (
-    <div>
-      <p>Question Text</p>
+    <div className="questionArea">
+      <h1>Prisoner's  Dilemma</h1>
+     <hr></hr>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, numquam, sit labore ipsum id, nobis quo eveniet dicta pariatur harum mollitia iste. Neque aspernatur eius sint perspiciatis voluptas maiores ipsa? Architecto quibusdam obcaecati ex ut illo maxime quis fuga laudantium, nobis dolores iste reiciendis ab esse eum aliquid ad a? Quae, quas. Nesciunt ratione vel earum voluptas consequatur quas rerum et quibusdam eius laudantium porro non aut accusantium doloribus, atque iure soluta natus laborum possimus quos aliquid cupiditate voluptatum, sapiente repudiandae! Ad inventore sit impedit alias sint doloribus deleniti voluptatum harum, tempora eveniet cumque omnis doloremque asperiores, corrupti sed aliquid.</p>
       <SuccessModal
         openModal={successMsg}
         message={successMsg}
@@ -60,13 +63,24 @@ export default function Question() {
             ))}
           </ul>
         )}
-        <label id="python">Python Code</label>
-        <textarea name="py" type="text" id="python" required />
-        <div>
-          <button type="button" onClick={handleCancel} disabled={onSubmitting}>
+        <label htmlFor="python">Python Code</label>
+        <textarea name="py" id="python" required placeholder="def make_move(moves):"/>
+        <div className="buttonContainer">
+          <button
+            type="button"
+            onClick={handleCancel}
+            disabled={onSubmitting}
+            className="cancelButton"
+          >
             Cancel
           </button>
-          <button disabled={onSubmitting}>upload</button>
+          <button
+            type="submit"
+            disabled={onSubmitting}
+            className="submitButton"
+          >
+            Upload
+          </button>
         </div>
       </Form>
     </div>

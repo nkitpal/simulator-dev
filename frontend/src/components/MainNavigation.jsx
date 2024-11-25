@@ -24,7 +24,7 @@ export default function MainNavigation() {
         <ul className={classes.menu}>
           {token && (
             <ul>
-              <li>{name}</li>
+              <li><NavLink to="/">{name}</NavLink></li>
               <NavLink to="/question">Question</NavLink>
               <NavLink onClick={handleLogout}>Logout</NavLink>
             </ul>
