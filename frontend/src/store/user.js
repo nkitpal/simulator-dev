@@ -201,7 +201,7 @@ export const registerActions = (formData) => {
       console.log(formData);
       dispatch(usersActions.register({ type: "REGISTER_USER_REQ" }));
 
-      const response = await fetch("https://simulator-dev-backend.onrender.comp/user/signup", {
+      const response = await fetch("https://simulator-dev-backend.onrender.com/user/signup", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -305,7 +305,7 @@ export const loginActions = (authResult) => {
         throw new Error("Could not login with google");
       }
 
-      const response = await fetch("https://simulator-dev-backend.onrender.com/auth/login", {
+      const response = await fetch("https://simulator-dev-frontend.vercel.app/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
