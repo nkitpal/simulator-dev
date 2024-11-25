@@ -314,7 +314,7 @@ export const loginActions = (authResult) => {
           code: authResult["code"],
         }),
       });
-
+      
       if (response.status === 422 || response.status === 401) {
         const errors = await response.json();
         dispatch(
