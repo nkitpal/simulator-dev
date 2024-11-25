@@ -4,9 +4,11 @@ config();
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const YOUR_REDIRECT_URL = process.env.YOUR_REDIRECT_URL;
 
 export const googleConfig = new google.auth.OAuth2(
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
+  YOUR_REDIRECT_URL,
   "postmessage"
 );
