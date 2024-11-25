@@ -70,8 +70,8 @@ export const loadStudentsActions = () => {
       dispatch(
         leaderboardActions.showLeaderboard({ type: "LEADERBOARD_REQUEST" })
       );
-
-      const response = await fetch( process.env.REACT_APP_FRONTEND_URL +"/user/leaderboard", {
+      
+      const response = await fetch("https://simulator-dev-backend.onrender.com/user/leaderboard",{
         method: "GET",
       });
 

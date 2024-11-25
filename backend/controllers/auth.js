@@ -103,6 +103,7 @@ export const login = async (req, res, next) => {
 
 export const googleLogin = async (req, res, next) => {
   try {
+    console.log("hello")
     const { code } = req.body;
     const googleRes = await googleConfig.getToken(code);
     googleConfig.setCredentials(googleRes.tokens);
