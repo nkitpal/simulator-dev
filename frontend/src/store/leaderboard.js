@@ -71,7 +71,7 @@ export const loadStudentsActions = () => {
         leaderboardActions.showLeaderboard({ type: "LEADERBOARD_REQUEST" })
       );
 
-      const response = await fetch("https://simulator-dev-backend/user/leaderboard", {
+      const response = await fetch("https://simulator-dev-backend.onrender.com/user/leaderboard", {
         method: "GET",
       });
 
