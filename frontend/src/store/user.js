@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { leaderboardActions, leaderboarSlice } from "./leaderboard";
-
 const userDataFromStorage =
   JSON.parse(localStorage.getItem("userData")) || null;
 
@@ -307,6 +306,7 @@ export const loginActions = (authResult) => {
 
       const response = await fetch("https://simulator-dev-frontend.vercel.app/auth/login", {
         method: "POST",
+        mode: "cors",
         headers: {
           "Content-Type": "application/json",
         },
