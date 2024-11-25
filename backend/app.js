@@ -37,7 +37,7 @@ app.use((error, req, res, next) => {
 });
 
 (async () => {
-  const port =  8080;
+  const port = process.env.PORT || 8080;
   const res = await mongoose.connect(process.env.mongoUrl);
   console.log("connected");
 
